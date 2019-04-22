@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         const formData = new FormData();
 
         for (let i = 0; i < files.length; i++) {
+            let file = files[i];
             formData.append('files[]', file);
         }
 
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const clips = document.querySelectorAll('.audio-file');
 
     clips.forEach(function(clip) {
-        clip.addEventListener('click', event => {
+        clip.addEventListener('click', function(event) {
             event.preventDefault();
 
             const audio = new Audio(this.href);
