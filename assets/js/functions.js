@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const clips = document.querySelectorAll('.audio-file');
 
     clips.forEach(function(clip) {
-        clip.addEventListener('click', (event) => {
+        clip.addEventListener('click', event => {
             event.preventDefault();
 
             const audio = new Audio(clip.href);
