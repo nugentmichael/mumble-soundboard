@@ -59,10 +59,5 @@ You might want to run concatScripts once separately after adding new JS files.
 gulp concatScripts
 ```
 
-## Overwriting Bootstrap sass variables
-You can overwrite specific bootstrap sass variables by uncommenting lines in assets/css/1-frameworks/bootstrap/bootstrap-user-variables.scss
-
 ## PHP
 This web application utilizes the PHP language framework.
-```
-* Start the MAMP services and run "gulp serve" as before.
