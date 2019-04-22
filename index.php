@@ -55,17 +55,48 @@
 			<div id="sound-clips" class="col-md-9">
 				<h1 class="text-center">Mumble Soundboard</h1>
 
-				<form class="my-5">
+				<form id="audio-upload" class="my-5" method="post" enctype="multipart/form-data">
 					<div class="form-group">
-						<label for="audio-control-files">Browse soundboard clips</label>
-						<input type="file" class="d-block audio-control-file" id="audio-control-files">
+						<label for="audio-file-upload">Browse soundboard clips</label>
+						<input type="file" id="audio-file-upload" class="d-block audio-control-file" name="files[]" multiple />
+						<input type="submit" value="Upload File" name="submit" />
 					</div>
 				</form>
 
 				<?php
 				$path  = 'assets/wav';
+				$target_file = $path . basename( $_FILES[ "fileToUpload" ][ "name" ] );
+				$upload = 1;
+				$audio_file_type = strtolower( pathinfo( $target_file, PATHINFO_EXTENSION) );
 				$files = scandir( $path );
 				$files = array_diff( scandir( $path ), array( '.', '..' ) );
+
+				// Check if the file already exists
+				if ( file_exists( $target_file ) ) :
+					$upload = 0;
+				endif;
+
+				// Check the file size
+				if ( $_FILES[ "fileToUpload" ][ "size" ] > 500000 ) :
+					$upload = 0;
+				endif;
+
+				// Only allow MP3 and WAV file formats
+				if ( $audio_file_type != "mp3" && $audio_file_type != "wav" ) :
+					$upload = 0;
+				endif;
+
+				// Check if the $upload variable flag is set to 0 by an error
+				if ( $upload === 0 ) :
+					echo "Sorry, your file was not uploaded.";
+				// if everything is ok, try to upload file
+				else :
+					if ( move_uploaded_file( $_FILES[ "fileToUpload" ][ "tmp_name" ], $target_file ) ) :
+						echo "The file " . basename( $_FILES[ "fileToUpload" ][ "name" ]) . " has been uploaded.";
+					else :
+						echo "Sorry, there was an error uploading your file.";
+					endif;
+				endif;
 
 				if ( $files ) :
 					?>
