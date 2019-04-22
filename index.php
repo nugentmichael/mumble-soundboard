@@ -57,46 +57,55 @@
 
 				<form id="audio-upload" class="my-5" method="post" enctype="multipart/form-data">
 					<div class="form-group">
-						<label for="audio-file-upload">Browse soundboard clips</label>
-						<input type="file" id="audio-file-upload" class="d-block audio-control-file" name="files[]" multiple />
-						<input type="submit" value="Upload File" name="submit" />
+						<label for="audio-file-upload" class="d-block">Browse soundboard clips</label>
+
+						<div class="d-flex align-items-center justify-content-between">
+							<input type="file" id="audio-file-upload" class="d-inline-block audio-control-file" name="files[]" multiple />
+							<input type="submit" class="d-inline-block btn btn-primary" value="Upload File" name="submit" />
+						</div>
 					</div>
 				</form>
 
 				<?php
-				$path  = 'assets/wav';
-				$target_file = $path . basename( $_FILES[ "fileToUpload" ][ "name" ] );
-				$upload = 1;
-				$audio_file_type = strtolower( pathinfo( $target_file, PATHINFO_EXTENSION) );
-				$files = scandir( $path );
-				$files = array_diff( scandir( $path ), array( '.', '..' ) );
+				// Global Variables
+				$path      = 'assets/wav';
+				$files     = scandir( $path );
+				$files     = array_diff( scandir( $path ), array( '.', '..' ) );
+				$all_files = count( $_FILES[ 'files' ][ 'tmp_name' ] );
 
-				// Check if the file already exists
-				if ( file_exists( $target_file ) ) :
-					$upload = 0;
-				endif;
+				// File Upload Functionality
+				for ( $i = 0; $i < $all_files; $i++ ) :
+					$file_name = $_FILES[ 'files' ][ 'name' ][ $i ];
+					$file_tmp  = $_FILES[ 'files' ][ 'tmp_name' ][ $i ];
+					$file_type = $_FILES[ 'files' ][ 'type' ][ $i ];
+					$file_size = $_FILES[ 'files' ][ 'size' ][ $i ];
+					$file_ext  = strtolower( end( explode( '.', $_FILES[ 'files' ][ 'name' ][ $i ] ) ) );
 
-				// Check the file size
-				if ( $_FILES[ "fileToUpload" ][ "size" ] > 500000 ) :
-					$upload = 0;
-				endif;
+					$file = $path . $file_name;
 
-				// Only allow MP3 and WAV file formats
-				if ( $audio_file_type != "mp3" && $audio_file_type != "wav" ) :
-					$upload = 0;
-				endif;
+					if ( !in_array( $file_ext, $extensions ) ) :
+						$errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
+					endif;
 
-				// Check if the $upload variable flag is set to 0 by an error
-				if ( $upload === 0 ) :
-					echo "Sorry, your file was not uploaded.";
-				// if everything is ok, try to upload file
-				else :
-					if ( move_uploaded_file( $_FILES[ "fileToUpload" ][ "tmp_name" ], $target_file ) ) :
-						echo "The file " . basename( $_FILES[ "fileToUpload" ][ "name" ]) . " has been uploaded.";
-					else :
-						echo "Sorry, there was an error uploading your file.";
+					if ( $file_size > 2097152 ) :
+						$errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
+					endif;
+
+					if ( empty( $errors ) ) :
+						move_uploaded_file( $file_tmp, $file );
+					endif;
+				endfor;
+
+				if ($errors) print_r( $errors );
+
+				if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) :
+					if ( isset( $_FILES[ 'files' ] ) ) :
+						$errors = [];
+						$extensions = ['mp3', 'wav'];
 					endif;
 				endif;
+
+				// Display Uploaded Files
 
 				if ( $files ) :
 					?>
