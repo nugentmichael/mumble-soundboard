@@ -30,16 +30,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
             fetch(url, {
                 method: 'POST',
                 body: formData,
-            }).then(function(files) {
-                let clip = document.createElement('a');
-                clip.href = 'assets/wav/' + file.name;
-                clip.className = 'list-group-item list-group-item-action audio-file';
-                clip.innerHTML = file.name;
+            }).then(function() {
+                if (document.querySelector('.audio-file[href*="' + file.name + '"]')) {
+                    return;
+                } else {
+                    let clip = document.createElement('a');
+                    clip.href = 'assets/wav/' + file.name;
+                    clip.className = 'list-group-item list-group-item-action audio-file';
+                    clip.innerHTML = file.name;
 
-                document.querySelector('.list-group').appendChild(clip);
-                playAudio();
-
-                document.querySelector('[type=file]').value = "";
+                    document.querySelector('.list-group').appendChild(clip);
+                    document.querySelector('[type=file]').value = "";
+                    playAudio();
+                }
             }).catch(error => {
                 console.error(error);
             });
