@@ -76,7 +76,7 @@
 				<?php
 				// Global Variables
 				$errors     = [];
-				$path       = __DIR__ . '/assets/wav/';
+				$path       = 'assets/wav/';
 				$extensions = [ 'mp3', 'wav' ];
 				$files      = scandir( $path );
 				$files      = preg_grep( '/^([^.])/', array_diff( scandir( $path ), array( '.', '..' ) ) );
@@ -117,7 +117,7 @@
 					?>
 					<div class="list-group">
 						<?php foreach ( $files as $file ) : ?>
-							<a href="<?php echo $path . '/' . $file; ?>" class="list-group-item list-group-item-action audio-file"><?php echo $file; ?></a>
+							<a href="<?php echo $path . $file; ?>" class="list-group-item list-group-item-action audio-file"><?php echo $file; ?></a>
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
