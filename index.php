@@ -79,7 +79,7 @@
 				$path       = __DIR__ . '/assets/wav/';
 				$extensions = [ 'mp3', 'wav' ];
 				$files      = scandir( $path );
-				$files      = array_diff( scandir( $path ), array( '.', '..' ) );
+				$files      = preg_grep( '/^([^.])/', array_diff( scandir( $path ), array( '.', '..' ) ) );
 
 				if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) :
 					if ( isset( $_FILES[ 'files' ] ) ) :
