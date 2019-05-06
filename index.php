@@ -1,3 +1,10 @@
+<?php
+	// For Debugging
+	ini_set( 'display_errors', 1 );
+	ini_set( 'display_startup_errors', 1 );
+	error_reporting( E_ALL );
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +67,7 @@
 						<label for="audio-file-upload" class="d-block">Browse soundboard clips</label>
 
 						<div class="d-flex align-items-center justify-content-between">
-							<input type="file" id="audio-file-upload" class="d-inline-block audio-control-file" name="files[]" multiple />
+							<input type="file" id="audio-file-upload" class="d-inline-block audio-control-file" name="files[]" />
 							<input type="submit" class="d-inline-block btn btn-primary" value="Upload File" name="submit" />
 						</div>
 					</div>
@@ -68,45 +75,44 @@
 
 				<?php
 				// Global Variables
-				$path      = 'assets/wav';
-				$files     = scandir( $path );
-				$files     = array_diff( scandir( $path ), array( '.', '..' ) );
-				$all_files = count( $_FILES[ 'files' ][ 'tmp_name' ] );
-
-				// File Upload Functionality
-				for ( $i = 0; $i < $all_files; $i++ ) :
-					$file_name = $_FILES[ 'files' ][ 'name' ][ $i ];
-					$file_tmp  = $_FILES[ 'files' ][ 'tmp_name' ][ $i ];
-					$file_type = $_FILES[ 'files' ][ 'type' ][ $i ];
-					$file_size = $_FILES[ 'files' ][ 'size' ][ $i ];
-					$file_ext  = strtolower( end( explode( '.', $_FILES[ 'files' ][ 'name' ][ $i ] ) ) );
-
-					$file = $path . $file_name;
-
-					if ( !in_array( $file_ext, $extensions ) ) :
-						$errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
-					endif;
-
-					if ( $file_size > 2097152 ) :
-						$errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
-					endif;
-
-					if ( empty( $errors ) ) :
-						move_uploaded_file( $file_tmp, $file );
-					endif;
-				endfor;
-
-				if ($errors) print_r( $errors );
+				$errors     = [];
+				$path       = __DIR__ . '/assets/wav/';
+				$extensions = [ 'mp3', 'wav' ];
+				$files      = scandir( $path );
+				$files      = array_diff( scandir( $path ), array( '.', '..' ) );
 
 				if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) :
 					if ( isset( $_FILES[ 'files' ] ) ) :
-						$errors = [];
-						$extensions = ['mp3', 'wav'];
+						$all_files = count( $_FILES[ 'files' ][ 'tmp_name' ] );
+
+						// File Upload Functionality
+						for ( $i = 0; $i < $all_files; $i++ ) :
+							$file_name = $_FILES[ 'files' ][ 'name' ][ $i ];
+							$file_tmp  = $_FILES[ 'files' ][ 'tmp_name' ][ $i ];
+							$file_type = $_FILES[ 'files' ][ 'type' ][ $i ];
+							$file_size = $_FILES[ 'files' ][ 'size' ][ $i ];
+							$file_ext  = strtolower( end( explode( '.', $_FILES[ 'files' ][ 'name' ][ $i ] ) ) );
+
+							$file = $path . $file_name;
+
+							if ( !in_array( $file_ext, $extensions ) ) :
+								$errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
+							endif;
+
+							if ( $file_size > 2097152 ) :
+								$errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
+							endif;
+
+							if ( empty( $errors ) ) :
+								move_uploaded_file( $file_tmp, $file );
+							endif;
+						endfor;
+
+						if ( $errors ) print_r( $errors );
 					endif;
 				endif;
 
 				// Display Uploaded Files
-
 				if ( $files ) :
 					?>
 					<div class="list-group">
