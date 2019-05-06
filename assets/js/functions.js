@@ -16,26 +16,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 method: 'POST',
                 body: formData,
             }).then(function() {
-                let track = document.createElement('a');
-                track.href = file.name;
-                track.className = 'list-group-item list-group-item-action audio-file';
-                track.innerHTML = file.name;
+                let clip = document.createElement('a');
+                clip.href = 'assets/wav/' + file.name;
+                clip.className = 'list-group-item list-group-item-action audio-file';
+                clip.innerHTML = file.name;
 
-                document.querySelector('.list-group').appendChild(track);
+                document.querySelector('.list-group').appendChild(clip);
+                playAudio();
             }).catch(error => {
                 console.error(error);
             });
         }
     });
 
-    const clips = document.querySelectorAll('.audio-file');
+    function playAudio() {
+        const clips = document.querySelectorAll('.audio-file');
 
-    clips.forEach(function(clip) {
-        clip.addEventListener('click', event => {
-            event.preventDefault();
+        clips.forEach(function(clip) {
+            clip.addEventListener('click', event => {
+                event.preventDefault();
 
-            const audio = new Audio(clip.href);
-            audio.play();
+                const audio = new Audio(clip.href);
+                audio.play();
+            });
         });
-    });
+    }
+
+    playAudio();
 });
