@@ -9,16 +9,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
         const formData = new FormData();
 
         for (let i = 0; i < files.length; i++) {
-            let file = files[i];
+            file = files[i];
             formData.append('files[]', file);
-        }
 
-        fetch(url, {
-            method: 'POST',
-            body: formData,
-        }).then(response => {
-            console.log(response);
-        });
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+            }).then(function() {
+                let track = document.createElement('a');
+                track.href = file.name;
+                track.className = 'list-group-item list-group-item-action audio-file';
+                track.innerHTML = file.name;
+
+                document.querySelector('.list-group').appendChild(track);
+            }).catch(error => {
+                console.error(error);
+            });
+        }
     });
 
     const clips = document.querySelectorAll('.audio-file');
