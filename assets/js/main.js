@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             fetch(url, {
                 method: 'POST',
                 body: formData,
-            }).then(function() {
+            }).then(function(files) {
                 let clip = document.createElement('a');
                 clip.href = 'assets/wav/' + file.name;
                 clip.className = 'list-group-item list-group-item-action audio-file';
@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
                 document.querySelector('.list-group').appendChild(clip);
                 playAudio();
+
+                document.querySelector('[type=file]').value = "";
             }).catch(error => {
                 console.error(error);
             });
