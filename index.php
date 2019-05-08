@@ -33,7 +33,7 @@
 		<div class="collapse navbar-collapse justify-content-end" id="soundboard-navbar">
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2 audio-search" type="text" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<button class="btn btn-outline-success my-2 my-sm-0 audio-search-btn" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
