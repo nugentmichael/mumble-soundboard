@@ -16,13 +16,22 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     // Search Functionality
     const search = document.querySelector('.audio-search');
+    const searchBtn = document.querySelector('.audio-search-btn');
     const list = document.querySelector('#sound-clips .list-group');
     let link = list.getElementsByTagName('a');
     let filter, textValue;
 
     search.addEventListener('keyup', event => {
         event.preventDefault();
+        audioSearch();
+    });
 
+    searchBtn.addEventListener('click', event => {
+        event.preventDefault();
+        audioSearch();
+    });
+
+    function audioSearch() {
         filter = search.value.toUpperCase();
 
         for (let i = 0; i < link.length; i++) {
@@ -34,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 link[i].style.display = "none";
             }
         }
-    });
+    }
 
     // Upload Functionality
     const url = 'index.php';
