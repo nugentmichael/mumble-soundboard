@@ -25,14 +25,14 @@
 
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a class="navbar-brand" href=".">Mumble Soundboard</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+		<a class="navbar-brand" href="#">Mumble Soundboard</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#soundboard-navbar" aria-controls="soundboard-navbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+		<div class="collapse navbar-collapse justify-content-end" id="soundboard-navbar">
 			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+				<input class="form-control mr-sm-2 audio-search" type="text" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 		</div>
