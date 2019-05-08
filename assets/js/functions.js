@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         audioSearch();
     });
 
+    search.addEventListener('submit', event => {
+        event.preventDefault();
+        audioSearch();
+    });
+
     searchBtn.addEventListener('click', event => {
         event.preventDefault();
         audioSearch();
