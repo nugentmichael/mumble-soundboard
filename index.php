@@ -1,8 +1,8 @@
 <?php
 	// For Debugging
-	ini_set( 'display_errors', 1 );
-	ini_set( 'display_startup_errors', 1 );
-	error_reporting( E_ALL );
+	// ini_set( 'display_errors', 1 );
+	// ini_set( 'display_startup_errors', 1 );
+	// error_reporting( E_ALL );
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +67,7 @@
 						<label for="audio-file-upload" class="d-block">Browse soundboard clips</label>
 
 						<div class="d-flex align-items-center justify-content-between">
-							<input type="file" id="audio-file-upload" class="d-inline-block audio-control-file" name="files[]" />
+							<input type="file" id="audio-file-upload" class="d-inline-block audio-control-file" name="files[]" multiple />
 							<input type="submit" class="d-inline-block btn btn-primary" value="Upload File" name="submit" />
 						</div>
 					</div>
