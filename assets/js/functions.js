@@ -1,30 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     // Search Functionality
-    // var input, filter, table, tr, td, i, txtValue;
-    // input = document.getElementById("myInput");
-    // filter = input.value.toUpperCase();
-    // table = document.getElementById("myTable");
-    // tr = table.getElementsByTagName("tr");
-    // for (i = 0; i < tr.length; i++) {
-    //     td = tr[i].getElementsByTagName("td")[0];
-    //     if (td) {
-    //         txtValue = td.textContent || td.innerText;
-    //         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-    //             tr[i].style.display = "";
-    //         } else {
-    //             tr[i].style.display = "none";
-    //         }
-    //     }
-    // }
-
     const search = document.querySelector('.audio-search');
-    const filter = search.value.toUpperCase();
     const list = document.querySelector('#sound-clips .list-group');
     let link = list.getElementsByTagName('a');
-    let textValue;
+    let filter, textValue;
 
     search.addEventListener('keyup', event => {
-        // event.preventDefault();
+        event.preventDefault();
+
+        filter = search.value.toUpperCase();
 
         for (let i = 0; i < link.length; i++) {
             textValue = link[i].textContent || link[i].innerText;
