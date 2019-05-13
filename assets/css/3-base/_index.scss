@@ -2,6 +2,21 @@
 @import 'mixins';
 @import 'base';
 
+#audio-upload .alert {
+    padding: 0;
+    height: 0;
+    font-size: 0;
+    border: none;
+    @include transition(400ms ease);
+}
+
+#audio-upload .alert.show {
+    padding: 0.75rem 1.25rem;
+    height: initial;
+    font-size: initial;
+    border: initial;
+}
+
 #sound-clips {
     margin: 100px auto;
 }
