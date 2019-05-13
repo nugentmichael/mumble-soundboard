@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }).then(function() {
                 for (let j = 0; j < sound.length; j++) {
                     if (sound[j].textContent === file.name || sound[j].innerText === file.name) {
+                        document.querySelector('#audio-upload .alert-danger').classList.add('show');
                         return;
                     }
                 }
@@ -81,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 clip.innerHTML = file.name;
 
                 document.querySelector('.list-group').appendChild(clip);
+                document.querySelector('#audio-upload .alert-success').classList.add('show');
                 document.querySelector('[type=file]').value = "";
                 playAudio();
             }).catch(error => {
