@@ -60,6 +60,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         const files = document.querySelector('[type=file]').files;
         const formData = new FormData();
         const sound = document.querySelectorAll('.audio-file');
+        const alerts = document.querySelectorAll('#audio-upload .alert');
+
+        for (let k = 0; k < alerts.length; k++) {
+            if (alerts[k].classList.contains('show')) {
+                alerts[k].classList.remove('show');
+            }
+        }
 
         for (let i = 0; i < files.length; i++) {
             file = files[i];

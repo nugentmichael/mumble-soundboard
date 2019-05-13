@@ -53,13 +53,9 @@
                         </div>
                     </div>
 
-                    <div class="alert alert-success fade" role="alert">
-                        Successfully uploaded.
-                    </div>
+                    <div class="alert alert-success" role="alert">Successfully uploaded.</div>
 
-                    <div class="alert alert-danger fade" role="alert">
-                        <strong>Error!</strong> Could not upload your file.
-                    </div>
+                    <div class="alert alert-danger" role="alert"><strong>Error!</strong> Could not upload your file.</div>
                 </form>
 
                 <?php
